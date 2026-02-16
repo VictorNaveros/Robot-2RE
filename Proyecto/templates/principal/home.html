@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - ROBOT 2R.E{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section con imagen de fondo -->
+<section class="relative parallax overlay-dark min-h-screen flex items-center"
+    style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600&q=80');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-700/80"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl fade-in">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                Ludificando vamos <span class="text-orange-400">educando</span>
+            </h1>
+            <p class="text-xl md:text-3xl mb-4 font-semibold text-white">
+                ¿Conoces más acerca de 2R.E?
+            </p>
+            <p class="text-lg mb-8 text-gray-100 max-w-2xl">
+                Descubre cómo nuestro robot ecológico está transformando la forma de reciclar a través de la
+                gamificación y la inteligencia artificial
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'sobre_robot' %}"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition transform hover:scale-105 btn-shine inline-block">
+                    Conocer más →
+                </a>
+                <a href="#juegos"
+                    class="bg-white text-green-700 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition transform hover:scale-105 inline-block">
+                    Jugar ahora 🎮
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- El Robot Section - BLANCO -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Imagen con animación -->
+            <div class="slide-in-left">
+                <div class="relative">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-green-400 to-green-600 rounded-full opacity-20 blur-2xl">
+                    </div>
+                    <div
+                        class="relative w-80 h-80 mx-auto bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center shadow-2xl hover-scale float">
+                        <div class="text-center text-white">
+                            <div class="text-9xl mb-4">🤖</div>
+                            <p class="text-2xl font-bold">ROBOT 2R.E</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="slide-in-right">
+                <div class="inline-block bg-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">
+                    INNOVACIÓN ECOLÓGICA
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    El Increíble Robot Al Servicio De La Enseñanza Del Reciclaje
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-4 text-lg">
+                    Nuestro proyecto nace de la necesidad de crear conciencia ambiental desde temprana edad.
+                    A través de la tecnología y la gamificación, buscamos hacer del reciclaje una actividad
+                    divertida y educativa.
+                </p>
+                <p class="text-gray-600 leading-relaxed text-lg mb-6">
+                    El robot 2R.E utiliza inteligencia artificial para reconocer diferentes tipos de residuos,
+                    específicamente botellas plásticas, y recompensa a los usuarios por sus acciones ecológicas.
+                </p>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="text-center p-4 bg-green-50 rounded-lg hover-scale">
+                        <div class="text-3xl font-bold text-green-600">100%</div>
+                        <div class="text-sm text-gray-600">Ecológico</div>
+                    </div>
+                    <div class="text-center p-4 bg-orange-50 rounded-lg hover-scale">
+                        <div class="text-3xl font-bold text-orange-600">IA</div>
+                        <div class="text-sm text-gray-600">Inteligencia</div>
+                    </div>
+                    <div class="text-center p-4 bg-green-50 rounded-lg hover-scale">
+                        <div class="text-3xl font-bold text-green-600">SENA</div>
+                        <div class="text-sm text-gray-600">Proyecto</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Características Section - VERDE -->
+<section class="py-20 bg-gradient-to-br from-green-500 to-green-700">
+    <div class="container mx-auto px-6">
+
+        <div class="text-center mb-16 scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                ¿Cómo funciona 2R.E?
+            </h2>
+            <p class="text-xl text-green-100 max-w-2xl mx-auto">
+                Tres pilares fundamentales que hacen del reciclaje una experiencia única
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- Ludificación -->
+            <div
+                class="scroll-fade-in bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover-scale group border border-white/20">
+                <div class="text-7xl mb-6 group-hover:scale-110 transition-transform duration-300">🎮</div>
+                <h3 class="text-2xl font-bold mb-4 text-green-700">Ludificación</h3>
+                <p class="leading-relaxed text-gray-700">
+                    Transformamos el aprendizaje en un juego divertido. Los estudiantes ganan puntos
+                    y desbloquean logros mientras aprenden sobre reciclaje y cuidado del medio ambiente.
+                </p>
+            </div>
+
+            <!-- Recompensa -->
+            <div class="scroll-fade-in bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover-scale group border border-white/20"
+                style="animation-delay: 0.2s">
+                <div class="text-7xl mb-6 group-hover:scale-110 transition-transform duration-300">🏆</div>
+                <h3 class="text-2xl font-bold mb-4 text-orange-600">Recompensa</h3>
+                <p class="leading-relaxed text-gray-700">
+                    Cada acción cuenta. El sistema de recompensas motiva a los estudiantes a participar
+                    activamente, celebrando cada botella reciclada como un logro significativo.
+                </p>
+            </div>
+
+            <!-- Hábitos -->
+            <div class="scroll-fade-in bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover-scale group border border-white/20"
+                style="animation-delay: 0.4s">
+                <div class="text-7xl mb-6 group-hover:scale-110 transition-transform duration-300">🧠</div>
+                <h3 class="text-2xl font-bold mb-4 text-green-700">Hábitos</h3>
+                <p class="leading-relaxed text-gray-700">
+                    Creamos hábitos sostenibles que duran toda la vida. A través de la repetición y
+                    el refuerzo positivo, el reciclaje se convierte en una segunda naturaleza.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Juegos - BLANCO -->
+<section id="juegos" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                🎮 Aprende Jugando
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Pon a prueba tus conocimientos sobre reciclaje con nuestros juegos interactivos
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Quiz Card -->
+            <div
+                class="bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 p-8 rounded-2xl shadow-lg hover-scale cursor-pointer scroll-fade-in group">
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">🧠</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Quiz de Reciclaje</h3>
+                <p class="text-gray-600 mb-6">
+                    Demuestra cuánto sabes sobre reciclaje y compite por el primer lugar en la tabla de clasificación.
+                </p>
+                <a href="{% url 'quiz_reciclaje' %}"
+                    class="block w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 text-center">
+                    Jugar Ahora
+                </a>
+            </div>
+
+            <!-- Mini-game Card -->
+            <div
+                class="bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 p-8 rounded-2xl shadow-lg hover-scale cursor-pointer scroll-fade-in group">
+                <div class="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">🗑️</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Clasifica Residuos</h3>
+                <p class="text-gray-600 mb-6">
+                    Arrastra los objetos al contenedor correcto y gana puntos por cada acierto.
+                </p>
+                <a href="{% url 'clasifica_residuos' %}"
+                    class="block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 text-center">
+                    Jugar Ahora
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Final -->
+<section class="py-20 relative parallax overlay-dark"
+    style="background-image: url('https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1600&q=80');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-900/95 to-green-700/90"></div>
+
+    <div class="container mx-auto px-6 text-center relative z-10">
+        <div class="max-w-3xl mx-auto scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                ¿Listo para hacer la diferencia?
+            </h2>
+            <p class="text-xl mb-8 text-green-100">
+                Únete a la revolución del reciclaje inteligente y ayuda a construir un futuro más sostenible
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="{% url 'sobre_robot' %}"
+                    class="bg-white text-green-700 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 inline-block">
+                    Conocer el Robot
+                </a>
+                <a href="{% url 'el_proyecto' %}"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105 inline-block">
+                    Ver el Proyecto
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

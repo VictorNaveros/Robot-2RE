@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Acerca del Proyecto - ROBOT 2R.E{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative parallax overlay-dark min-h-[70vh] flex items-center" style="background-image: url('https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=1600&q=80');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-700/85"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl fade-in">
+            <div class="inline-block bg-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">
+                NUESTRO PROPÓSITO
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                Acerca del <span class="text-orange-400">Proyecto</span>
+            </h1>
+            <p class="text-xl md:text-3xl mb-4 font-semibold text-white">
+                Un proyecto con impacto social y ambiental
+            </p>
+            <p class="text-lg text-gray-100 max-w-2xl mb-8">
+                Descubre el origen, la misión y la visión del Robot 2R.E, un proyecto que busca transformar 
+                la educación ambiental a través de la tecnología y la gamificación.
+            </p>
+            <a href="#genesis" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition transform hover:scale-105">
+                Conocer más →
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- GÉNESIS Section -->
+<section id="genesis" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Icono -->
+            <div class="slide-in-left flex justify-center">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-green-400 to-green-600 rounded-full opacity-20 blur-2xl"></div>
+                    <div class="relative w-80 h-80 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center shadow-2xl hover-scale float">
+                        <div class="text-center text-white">
+                            <div class="text-9xl mb-4">📖</div>
+                            <p class="text-2xl font-bold">GÉNESIS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="slide-in-right">
+                <div class="inline-block bg-green-100 text-green-700 px-6 py-2 rounded-full text-sm font-bold mb-4">
+                    EL ORIGEN
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    GÉNESIS
+                </h2>
+                
+                <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        Este Proyecto surgió como una respuesta a la problemática del mal manejo de residuos 
+                        en las instituciones educativas, en el país en general y la falta de crear una alternativa 
+                        ecológica de reciclaje que se pudiera implementar de manera sencilla.
+                    </p>
+                    
+                    <p>
+                        Su primera versión más conocida como <strong class="text-green-700">Ecobot Recolectario</strong> fue un 
+                        prototipo para un servicio social del residente Lahionel Cruz Luna quien decidió 
+                        continuar con el desarrollo del robot como su proyecto formativo en el SENA con la 
+                        ayuda de sus compañeros de programa Mateo Triana y Víctor Naveros en su desarrollo.
+                    </p>
+
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                        <p class="text-green-800 font-semibold">
+                            "De un proyecto de servicio social a una solución tecnológica integral para la educación ambiental"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Misión Section -->
+<section class="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Contenido (primero en desktop) -->
+            <div class="slide-in-left order-2 md:order-1">
+                <div class="inline-block bg-blue-100 text-blue-700 px-6 py-2 rounded-full text-sm font-bold mb-4">
+                    NUESTRO PROPÓSITO
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    Misión
+                </h2>
+                
+                <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        Nuestra Misión es crear una alternativa lúdica para promover y enseñar la separación de 
+                        residuos desde la base, haciendo de esto una tarea tediosa a una agradable de hacer.
+                    </p>
+                    
+                    <p>
+                        A diferencia de otros robots existentes, a través de la 
+                        <strong class="text-blue-700">ludificación</strong> se crea el buen 
+                        hábito del reciclaje, a partir de una experiencia agradable con el reciclaje.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <div class="text-4xl mb-2">🎮</div>
+                            <div class="font-bold text-gray-800">Ludificación</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <div class="text-4xl mb-2">🌱</div>
+                            <div class="font-bold text-gray-800">Educación</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <div class="text-4xl mb-2">♻️</div>
+                            <div class="font-bold text-gray-800">Reciclaje</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow text-center">
+                            <div class="text-4xl mb-2">🤖</div>
+                            <div class="font-bold text-gray-800">Tecnología</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagen (segundo en desktop) -->
+            <div class="slide-in-right order-1 md:order-2">
+                <div class="bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl shadow-2xl overflow-hidden hover-scale">
+                    <!-- Placeholder -->
+                    <div class="aspect-square flex items-center justify-center p-8">
+                        <div class="text-center text-white">
+                            <div class="text-8xl mb-4">🤖🦋</div>
+                            <p class="text-xl font-bold">Imagen: Robot con mariposa</p>
+                            <p class="text-sm opacity-75 mt-2">Representando armonía con la naturaleza</p>
+                        </div>
+                    </div>
+                    <!-- Cuando tengas la imagen:
+                    <img src="{% static 'img/robot-mariposa.jpg' %}" alt="Robot con mariposa" class="w-full h-auto">
+                    -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Visión Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Contenido -->
+            <div class="slide-in-left">
+                <div class="inline-block bg-purple-100 text-purple-700 px-6 py-2 rounded-full text-sm font-bold mb-4">
+                    HACIA EL FUTURO
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    Visión
+                </h2>
+                
+                <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                    <p>
+                        Una Colombia con mayor conciencia en su desarrollo, menor tasa de contaminación y mayor 
+                        de reutilización de residuos.
+                    </p>
+                    
+                    <p>
+                        Inspirar por el ejemplo a futuros ingenieros y desarrolladores a innovar en nuevas 
+                        tecnologías que favorezcan al medio ambiente y así construir un país mejor.
+                    </p>
+
+                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-8 rounded-2xl shadow-lg mt-8">
+                        <h4 class="text-2xl font-bold mb-4">Nuestros Objetivos</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">✓</span>
+                                <span>Reducir la contaminación ambiental en instituciones educativas</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">✓</span>
+                                <span>Crear conciencia ecológica desde temprana edad</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">✓</span>
+                                <span>Promover la innovación tecnológica sostenible</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">✓</span>
+                                <span>Inspirar a futuras generaciones de desarrolladores</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagen -->
+            <div class="slide-in-right">
+                <div class="bg-gradient-to-br from-green-400 to-green-600 rounded-2xl shadow-2xl overflow-hidden hover-scale">
+                    <!-- Placeholder -->
+                    <div class="aspect-square flex items-center justify-center p-8">
+                        <div class="text-center text-white">
+                            <div class="text-8xl mb-4">🏙️🌿</div>
+                            <p class="text-xl font-bold">Imagen: Ciudad ecológica</p>
+                            <p class="text-sm opacity-75 mt-2">Un futuro verde y sostenible</p>
+                        </div>
+                    </div>
+                    <!-- Cuando tengas la imagen:
+                    <img src="{% static 'img/ciudad-ecologica.jpg' %}" alt="Ciudad ecológica" class="w-full h-auto">
+                    -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Final -->
+<section class="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+    <div class="container mx-auto px-6 text-center">
+        <div class="max-w-3xl mx-auto scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">¡Únete al cambio!</h2>
+            <p class="text-xl mb-8 text-green-100">
+                Juntos podemos construir un futuro más verde y sostenible
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="{% url 'sobre_nosotros' %}" class="bg-white text-green-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg transition transform hover:scale-105">
+                    Conoce al Equipo
+                </a>
+                <a href="{% url 'sobre_robot' %}" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105">
+                    Ver el Robot
+                </a>
+                <a href="{% url 'home' %}" class="bg-green-800 hover:bg-green-900 text-white font-bold py-4 px-8 rounded-lg transition transform hover:scale-105">
+                    Jugar Ahora 🎮
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

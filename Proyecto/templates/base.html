@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ROBOT 2R.E{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body class="bg-gray-50 overflow-x-hidden">
+    <!-- Navbar -->
+<nav class="bg-white text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-2">
+                <span class="text-green-700 text-2xl font-bold">🤖 ROBOT 2R.E</span>
+            </div>
+            
+            <!-- Menú Desktop -->
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="{% url 'home' %}" class="text-green-700 hover:text-green-400 transition font-semibold">Inicio</a>
+                <a href="{% url 'sobre_robot' %}" class="text-green-700 hover:text-green-400 transition font-semibold">Sobre el Robot</a>
+                <a href="{% url 'sobre_nosotros' %}" class="text-green-700 hover:text-green-400 transition font-semibold">Sobre Nosotros</a>
+                <a href="{% url 'el_proyecto' %}" class="text-green-700 hover:text-green-400 transition font-semibold">El Proyecto</a>
+                <button onclick="mostrarModalLogin()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold transition">
+                    Iniciar Sesión
+                </button>
+            </div>
+            
+            <!-- Botón Hamburguesa (Solo Móvil) -->
+            <button id="menu-toggle" class="md:hidden text-green-700 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Menú Móvil (Desplegable) -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+            <div class="flex flex-col space-y-3">
+                <a href="{% url 'home' %}" class="text-green-700 hover:text-green-400 transition font-semibold py-2 px-4 rounded hover:bg-green-50">
+                    Inicio
+                </a>
+                <a href="{% url 'sobre_robot' %}" class="text-green-700 hover:text-green-400 transition font-semibold py-2 px-4 rounded hover:bg-green-50">
+                    Sobre el Robot
+                </a>
+                <a href="{% url 'sobre_nosotros' %}" class="text-green-700 hover:text-green-400 transition font-semibold py-2 px-4 rounded hover:bg-green-50">
+                    Sobre Nosotros
+                </a>
+                <a href="{% url 'el_proyecto' %}" class="text-green-700 hover:text-green-400 transition font-semibold py-2 px-4 rounded hover:bg-green-50">
+                    El Proyecto
+                </a>
+                <button onclick="mostrarModalLogin()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-lg font-semibold transition text-left">
+                    Iniciar Sesión
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- Contenido de cada página -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Modal de Login -->
+    <div id="modalLogin" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-11/12 shadow-2xl relative">
+            <!-- Botón cerrar (X) -->
+            <button onclick="cerrarModalLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold">
+                ×
+            </button>
+            
+            <!-- Icono -->
+            <div class="text-center mb-6">
+                <div class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-4xl">⚠️</span>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">Acceso Restringido</h2>
+            </div>
+            
+            <!-- Mensaje -->
+            <div class="text-center mb-6">
+                <p class="text-gray-600 mb-2">
+                    Solo usuarios autorizados por el equipo pueden acceder al sistema.
+                </p>
+                <p class="text-gray-700 font-semibold">
+                    ¿Tienes tus credenciales?
+                </p>
+            </div>
+            
+            <!-- Botones -->
+            <div class="flex gap-4">
+                <button onclick="cerrarModalLogin()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-lg transition">
+                    Cancelar
+                </button>
+                <button onclick="irAlLogin()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                    Sí, continuar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-8">
+            
+            <!-- Columna 1: Sobre el proyecto -->
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-green-400">🤖 ROBOT 2R.E</h3>
+                <p class="text-gray-400 leading-relaxed">
+                    Proyecto ecológico con inteligencia artificial para el reconocimiento y clasificación de residuos.
+                </p>
+            </div>
+
+            <!-- Columna 2: Enlaces rápidos -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Enlaces Rápidos</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{% url 'home' %}" class="text-gray-400 hover:text-green-400 transition">
+                            Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sobre_robot' %}" class="text-gray-400 hover:text-green-400 transition">
+                            Sobre el Robot
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sobre_nosotros' %}" class="text-gray-400 hover:text-green-400 transition">
+                            Sobre Nosotros
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'el_proyecto' %}" class="text-gray-400 hover:text-green-400 transition">
+                            El Proyecto
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Contacto -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Contacto</h3>
+                <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-center gap-2">
+                        <span>📧</span>
+                        <span>robot2re@proyecto.edu.co</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span>📱</span>
+                        <span>+57 300 123 4567</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span>📍</span>
+                        <span>Bogotá, Colombia</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Redes sociales -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Síguenos</h3>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition">
+                        <span class="text-xl">📘</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition">
+                        <span class="text-xl">📷</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition">
+                        <span class="text-xl">🐦</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition">
+                        <span class="text-xl">▶️</span>
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm mt-6">
+                    Únete a nuestra comunidad y ayúdanos a crear un futuro más verde
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Línea divisoria -->
+        <div class="border-t border-gray-800 mt-8 pt-6 text-center">
+            <p class="text-gray-400">
+                &copy; 2026 ROBOT 2R.E - Todos los derechos reservados | 
+                <span class="text-green-400">Proyecto Ecológico con IA</span>
+            </p>
+        </div>
+    </div>
+</footer>
+
+    <script src="{% static 'js/modal-login.js' %}"></script>
+    <script src="{% static 'js/scroll-animations.js' %}"></script>
+    <script src="{% static 'js/mobile-menu.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</class=>
+</html>

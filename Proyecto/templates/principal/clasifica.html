@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Clasifica Residuos - ROBOT 2R.E{% endblock %}
+
+{% block content %}
+
+<!-- Pantalla de inicio -->
+<section id="screen-inicio-clasifica" class="min-h-screen bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center py-20">
+    <div class="container mx-auto px-6">
+        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center fade-in">
+            <div class="text-7xl mb-6">🗑️</div>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Clasifica Residuos
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Arrastra cada objeto al contenedor correcto y gana puntos
+            </p>
+            
+            <div class="bg-orange-50 rounded-xl p-6 mb-8">
+                <h3 class="font-bold text-orange-700 mb-3">📋 Instrucciones:</h3>
+                <ul class="text-left text-gray-700 space-y-2">
+                    <li>✓ Arrastra 15 objetos a sus contenedores</li>
+                    <li>✓ Correcto = +15 puntos</li>
+                    <li>✓ Incorrecto = -5 puntos</li>
+                    <li>✓ Completa antes de que termine el tiempo</li>
+                </ul>
+                
+                <div class="grid grid-cols-3 gap-4 mt-6">
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <div class="text-2xl mb-1">🟢</div>
+                        <div class="font-semibold text-green-700 text-sm">Orgánico</div>
+                        <div class="text-xs text-gray-600">Alimentos, plantas</div>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <div class="text-2xl mb-1">🔵</div>
+                        <div class="font-semibold text-blue-700 text-sm">Reciclable</div>
+                        <div class="text-xs text-gray-600">Papel, plástico, metal</div>
+                    </div>
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <div class="text-2xl mb-1">⚫</div>
+                        <div class="font-semibold text-gray-700 text-sm">No reciclable</div>
+                        <div class="text-xs text-gray-600">Desechos mixtos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2 text-left">
+                    Ingresa tu nombre:
+                </label>
+                <input 
+                    type="text" 
+                    id="nombre-jugador-clasifica"
+                    maxlength="50"
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-600 focus:border-transparent text-lg"
+                    placeholder="Tu nombre"
+                >
+                <p id="error-nombre-clasifica" class="text-red-600 text-sm mt-2 hidden">Por favor ingresa tu nombre</p>
+            </div>
+            
+            <button 
+                onclick="iniciarClasifica()"
+                class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition transform hover:scale-105"
+            >
+                ¡Empezar! 🚀
+            </button>
+            
+            <a href="{% url 'home' %}" class="block mt-4 text-orange-600 hover:text-orange-800 font-semibold">
+                ← Volver al inicio
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Pantalla del juego -->
+<section id="screen-juego-clasifica" class="hidden min-h-screen bg-gradient-to-br from-orange-500 to-orange-700 py-20">
+    <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Header con puntos y tiempo -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <span class="text-gray-600">Objetos restantes:</span>
+                        <span id="objetos-restantes" class="font-bold text-2xl text-orange-600 ml-2">15</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-gray-600">Puntos</div>
+                        <div id="puntos-clasifica" class="font-bold text-3xl text-green-600">0</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-gray-600">Tiempo</div>
+                        <div id="tiempo-restante" class="font-bold text-3xl text-red-600">60s</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Área de juego -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8">
+                
+                <!-- Objeto a clasificar -->
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Arrastra este objeto:</h2>
+                    <div 
+                        id="objeto-actual" 
+                        class="inline-block bg-gradient-to-br from-yellow-400 to-orange-400 p-8 rounded-2xl shadow-lg cursor-move"
+                        draggable="true"
+                        ondragstart="drag(event)"
+                    >
+                        <div class="text-6xl mb-2" id="objeto-icono">🍎</div>
+                        <div class="text-xl font-bold text-white" id="objeto-nombre">Manzana</div>
+                    </div>
+                </div>
+                
+                <!-- Contenedores -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Contenedor Orgánico -->
+                    <div 
+                        id="contenedor-organico" 
+                        class="contenedor bg-green-100 border-4 border-green-500 rounded-2xl p-8 text-center min-h-[250px] flex flex-col items-center justify-center transition-all"
+                        ondrop="drop(event, 'organico')" 
+                        ondragover="allowDrop(event)"
+                        ondragleave="dragLeave(event)"
+                    >
+                        <div class="text-6xl mb-4">🟢</div>
+                        <h3 class="text-2xl font-bold text-green-700 mb-2">Orgánico</h3>
+                        <p class="text-gray-600 text-sm">Alimentos, plantas</p>
+                    </div>
+                    
+                    <!-- Contenedor Reciclable -->
+                    <div 
+                        id="contenedor-reciclable" 
+                        class="contenedor bg-blue-100 border-4 border-blue-500 rounded-2xl p-8 text-center min-h-[250px] flex flex-col items-center justify-center transition-all"
+                        ondrop="drop(event, 'reciclable')" 
+                        ondragover="allowDrop(event)"
+                        ondragleave="dragLeave(event)"
+                    >
+                        <div class="text-6xl mb-4">🔵</div>
+                        <h3 class="text-2xl font-bold text-blue-700 mb-2">Reciclable</h3>
+                        <p class="text-gray-600 text-sm">Papel, plástico, metal</p>
+                    </div>
+                    
+                    <!-- Contenedor No Reciclable -->
+                    <div 
+                        id="contenedor-no-reciclable" 
+                        class="contenedor bg-gray-100 border-4 border-gray-500 rounded-2xl p-8 text-center min-h-[250px] flex flex-col items-center justify-center transition-all"
+                        ondrop="drop(event, 'no-reciclable')" 
+                        ondragover="allowDrop(event)"
+                        ondragleave="dragLeave(event)"
+                    >
+                        <div class="text-6xl mb-4">⚫</div>
+                        <h3 class="text-2xl font-bold text-gray-700 mb-2">No Reciclable</h3>
+                        <p class="text-gray-600 text-sm">Desechos mixtos</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Pantalla de resultados -->
+<section id="screen-resultados-clasifica" class="hidden min-h-screen bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center py-20">
+    <div class="container mx-auto px-6">
+        <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center">
+            
+            <div id="resultado-icono-clasifica" class="text-8xl mb-6">🎉</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                ¡Terminaste!
+            </h2>
+            
+            <div class="bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-2xl p-8 mb-8">
+                <div class="text-lg mb-2">Tu puntaje final</div>
+                <div id="puntos-finales-clasifica" class="text-6xl font-bold mb-2">0</div>
+                <div class="text-lg">de 225 puntos</div>
+            </div>
+            
+            <div id="posicion-jugador-clasifica" class="bg-orange-50 rounded-xl p-6 mb-8">
+                <!-- Se carga con JavaScript -->
+            </div>
+            
+            <!-- Leaderboard -->
+            <div class="bg-gray-50 rounded-xl p-6 mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">🏆 Top 5 Clasificadores</h3>
+                <div id="leaderboard-contenedor-clasifica" class="space-y-3">
+                    <!-- Se carga con JavaScript -->
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button 
+                    onclick="location.reload()"
+                    class="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-6 rounded-lg transition"
+                >
+                    🔄 Jugar de Nuevo
+                </button>
+                <a 
+                    href="{% url 'home' %}"
+                    class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-lg transition inline-block"
+                >
+                    🏠 Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/clasifica.js' %}"></script>
+{% endblock %}

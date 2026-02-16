@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre el Robot - ROBOT 2R.E{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section con imagen de fondo -->
+<section class="relative parallax overlay-dark min-h-[70vh] flex items-center" style="background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1600&q=80');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-700/85"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl fade-in">
+            <div class="inline-block bg-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">
+                INNOVACIÓN TECNOLÓGICA
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                Conoce a <span class="text-orange-400">2R.E</span>
+            </h1>
+            <p class="text-xl md:text-3xl mb-4 font-semibold text-white">
+                Robot Reciclador Ecológico
+            </p>
+            <p class="text-lg text-gray-100 max-w-2xl mb-8">
+                Un proyecto innovador que combina inteligencia artificial, robótica y educación ambiental para crear conciencia sobre el reciclaje desde temprana edad.
+            </p>
+            <a href="#caracteristicas" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition transform hover:scale-105">
+                Conocer más →
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- ¿Qué significa 2R.E? Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Imagen del Robot -->
+            <div class="slide-in-left">
+                <div class="relative">
+                    <!-- Efecto de brillo -->
+                    <div class="absolute -inset-4 bg-gradient-to-r from-green-400 to-green-600 rounded-2xl opacity-20 blur-2xl"></div>
+                    
+                    <!-- Placeholder - Reemplazar con imagen real -->
+                    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl p-8 hover-scale">
+                        <div class="aspect-square flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-9xl mb-4">🤖</div>
+                                <p class="text-white text-xl font-bold">ROBOT 2R.E</p>
+                                <p class="text-gray-400 text-sm mt-2">Imagen del prototipo</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cuando tengas la imagen real:
+                    <img src="{% static 'img/robot-real.jpg' %}" alt="Robot 2R.E" class="relative rounded-2xl shadow-2xl w-full hover-scale">
+                    -->
+                </div>
+            </div>
+
+            <!-- Contenido -->
+            <div class="slide-in-right">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                    ¿Qué significa 2R.E?
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            <strong class="text-green-700">2R.E</strong> son las siglas de <strong>Robot Reciclador Ecológico</strong>. 
+                            Se originó como un proyecto de servicio social el cual tenía como propósito presentar un prototipo de un robot funcional 
+                            el cual promoviera el reciclaje y la separación de residuos.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            2R.E se diferencia de otros robots de su tipo al no depender de una recompensa monetaria, 
+                            sino más bien hacer de reciclar una buena experiencia la cual quieras hacer tú por tu cuenta 
+                            utilizando la <strong class="text-orange-700">Ludificación</strong> como medio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Características Técnicas -->
+<section id="caracteristicas" class="py-20 bg-gradient-to-br from-green-50 to-green-100">
+    <div class="container mx-auto px-6">
+        
+        <div class="text-center mb-16 scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Características Técnicas
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Tecnología de vanguardia al servicio del medio ambiente
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Cámara con IA -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📷</div>
+                <h3 class="text-2xl font-bold text-green-700 mb-4">Cámara con IA</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Sistema de reconocimiento visual que identifica botellas plásticas automáticamente usando inteligencia artificial.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Reconocimiento en tiempo real</li>
+                    <li>✓ Alta precisión de detección</li>
+                    <li>✓ Adaptable a diferentes condiciones</li>
+                </ul>
+            </div>
+
+            <!-- Sensores Avanzados -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group" style="animation-delay: 0.1s">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🔌</div>
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Sensores Avanzados</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Sensores infrarrojos y ultrasónicos para detección precisa de objetos y navegación segura.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Sensor infrarrojo de proximidad</li>
+                    <li>✓ Sensor ultrasónico de distancia</li>
+                    <li>✓ Sistema de seguridad integrado</li>
+                </ul>
+            </div>
+
+            <!-- Almacenamiento -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group" style="animation-delay: 0.2s">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">♻️</div>
+                <h3 class="text-2xl font-bold text-green-700 mb-4">Almacenamiento</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Compartimento interno para almacenar y clasificar los residuos recolectados de forma eficiente.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Capacidad optimizada</li>
+                    <li>✓ Sistema de compactación</li>
+                    <li>✓ Fácil vaciado y mantenimiento</li>
+                </ul>
+            </div>
+
+            <!-- Sistema de Recompensas -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group" style="animation-delay: 0.3s">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🎮</div>
+                <h3 class="text-2xl font-bold text-orange-700 mb-4">Gamificación</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Sistema de puntos y recompensas que motiva a los usuarios a reciclar de forma continua.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Puntos por cada reciclaje</li>
+                    <li>✓ Tabla de clasificación</li>
+                    <li>✓ Logros y desafíos</li>
+                </ul>
+            </div>
+
+            <!-- Conectividad -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group" style="animation-delay: 0.4s">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">📡</div>
+                <h3 class="text-2xl font-bold text-purple-700 mb-4">Conectividad</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Sistema conectado que permite monitoreo en tiempo real y análisis de datos.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Transmisión de telemetría</li>
+                    <li>✓ Dashboard en tiempo real</li>
+                    <li>✓ Estadísticas de uso</li>
+                </ul>
+            </div>
+
+            <!-- Sostenibilidad -->
+            <div class="scroll-fade-in bg-white p-8 rounded-2xl shadow-lg hover-scale group" style="animation-delay: 0.5s">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-300">🌱</div>
+                <h3 class="text-2xl font-bold text-green-700 mb-4">Sostenible</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Diseñado con materiales reciclados y bajo consumo energético para minimizar el impacto ambiental.
+                </p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li>✓ Materiales reciclados</li>
+                    <li>✓ Eficiencia energética</li>
+                    <li>✓ Diseño modular reparable</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Galería de imágenes (Placeholder) -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        
+        <div class="text-center mb-16 scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Galería del Proyecto
+            </h2>
+            <p class="text-xl text-gray-600">
+                El desarrollo del robot en imágenes
+            </p>
+        </div>
+
+        <!-- Carrusel simple (3 imágenes placeholder) -->
+        <div class="grid md:grid-cols-3 gap-6 scroll-fade-in">
+            
+            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover-scale">
+                <div class="aspect-video bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-6xl mb-2">📸</div>
+                        <p class="font-bold">Imagen 1</p>
+                        <p class="text-sm opacity-75">Prototipo inicial</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover-scale">
+                <div class="aspect-video bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-6xl mb-2">📸</div>
+                        <p class="font-bold">Imagen 2</p>
+                        <p class="text-sm opacity-75">Sistema de sensores</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group relative overflow-hidden rounded-2xl shadow-lg hover-scale">
+                <div class="aspect-video bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-6xl mb-2">📸</div>
+                        <p class="font-bold">Imagen 3</p>
+                        <p class="text-sm opacity-75">Robot en acción</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <p class="text-center text-gray-500 mt-8 text-sm">
+            Las imágenes reales del robot se agregarán próximamente
+        </p>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+    <div class="container mx-auto px-6 text-center">
+        <div class="max-w-3xl mx-auto scroll-fade-in">
+            <h2 class="text-4xl font-bold mb-6">¿Quieres saber más?</h2>
+            <p class="text-xl mb-8 text-green-100">
+                Descubre cómo funciona nuestro sistema y conoce al equipo detrás del proyecto
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="{% url 'el_proyecto' %}" class="bg-white text-green-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition transform hover:scale-105">
+                    Ver el Proyecto
+                </a>
+                <a href="{% url 'sobre_nosotros' %}" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition transform hover:scale-105">
+                    Conocer al Equipo
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

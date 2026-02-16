@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sobre Nosotros - ROBOT 2R.E{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section con imagen del equipo -->
+<section class="relative parallax overlay-dark min-h-[70vh] flex items-center" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-900/90 to-green-700/85"></div>
+    
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl fade-in">
+            <div class="inline-block bg-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">
+                NUESTRO EQUIPO
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                Sobre <span class="text-orange-400">Nosotros</span>
+            </h1>
+            <p class="text-xl md:text-3xl mb-4 font-semibold text-white">
+                Un equipo comprometido con el medio ambiente
+            </p>
+            <p class="text-lg text-gray-100 max-w-2xl mb-8">
+                Tres aprendices del SENA unidos por la pasión de crear tecnología que marque la diferencia en la educación ambiental.
+            </p>
+            <a href="#equipo" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-lg text-lg transition transform hover:scale-105">
+                Conocer al Equipo →
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- ¿Quiénes somos? Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                ¿Quiénes somos?
+            </h2>
+            
+            <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
+                <p>
+                    Somos un grupo de aprendices del <strong class="text-green-700">SENA</strong> (Lahionel, Mateo y Víctor), 
+                    que desarrollamos como proyecto final el Robot 2R.E (Robot Reciclador Ecológico) 
+                    como parte de nuestro proceso formativo.
+                </p>
+                
+                <p>
+                    Este proyecto nació con el objetivo de diseñar y construir un prototipo funcional 
+                    que fomente el reciclaje y la correcta separación de residuos, contribuyendo a 
+                    la protección del medio ambiente y la educación de las nuevas generaciones.
+                </p>
+                
+                <p>
+                    Combinamos nuestras habilidades en <strong class="text-blue-700">inteligencia artificial</strong>, 
+                    <strong class="text-purple-700">desarrollo backend</strong> y 
+                    <strong class="text-orange-700">diseño frontend</strong> para crear una solución 
+                    integral que va más allá de la tecnología: es un proyecto con propósito social.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- El Equipo Section -->
+<section id="equipo" class="py-20 bg-gradient-to-br from-green-50 to-green-100">
+    <div class="container mx-auto px-6">
+        
+        <div class="text-center mb-16 scroll-fade-in">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                Nuestro Equipo
+            </h2>
+            <p class="text-xl text-gray-600">
+                Conoce a las personas detrás del proyecto
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Lahionel -->
+            <div class="scroll-fade-in bg-white rounded-2xl shadow-xl overflow-hidden hover-scale group">
+                <!-- Foto (placeholder) -->
+                <div class="relative aspect-square bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-8xl font-bold mb-2">L</div>
+                        <p class="text-sm opacity-75">Foto de Lahionel</p>
+                    </div>
+                    <!-- Cuando tengas la foto real:
+                    <img src="{% static 'img/equipo/lahionel.jpg' %}" alt="Lahionel" class="w-full h-full object-cover">
+                    -->
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Lahionel Cruz Luna</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Líder del Proyecto
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Especialista en IA
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Responsable de la visión del proyecto y el desarrollo del sistema de reconocimiento 
+                        de imágenes con inteligencia artificial. Lidera la coordinación del equipo.
+                    </p>
+                    
+                    <!-- Contacto -->
+                    <div class="border-t pt-4 space-y-2">
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📧</span>
+                            <span>lci.ing-7@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📱</span>
+                            <span>3214569877</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>💻</span>
+                            <span>Lahionel-777</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mateo -->
+            <div class="scroll-fade-in bg-white rounded-2xl shadow-xl overflow-hidden hover-scale group" style="animation-delay: 0.1s">
+                <!-- Foto (placeholder) -->
+                <div class="relative aspect-square bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-8xl font-bold mb-2">M</div>
+                        <p class="text-sm opacity-75">Foto de Mateo</p>
+                    </div>
+                    <!-- Cuando tengas la foto real:
+                    <img src="{% static 'img/equipo/mateo.jpg' %}" alt="Mateo" class="w-full h-full object-cover">
+                    -->
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Mateo Triana</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Desarrollador Backend
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Telemetría
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Encargado del sistema de telemetría, gestión de sensores y la comunicación entre 
+                        el robot y el servidor. Desarrolla toda la lógica del backend.
+                    </p>
+                    
+                    <!-- Contacto -->
+                    <div class="border-t pt-4 space-y-2">
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📧</span>
+                            <span>jmateo@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📱</span>
+                            <span>3204428232</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>💻</span>
+                            <span>Mateo Triana</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Víctor -->
+            <div class="scroll-fade-in bg-white rounded-2xl shadow-xl overflow-hidden hover-scale group" style="animation-delay: 0.2s">
+                <!-- Foto (placeholder) -->
+                <div class="relative aspect-square bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <div class="text-8xl font-bold mb-2">V</div>
+                        <p class="text-sm opacity-75">Foto de Víctor</p>
+                    </div>
+                    <!-- Cuando tengas la foto real:
+                    <img src="{% static 'img/equipo/victor.jpg' %}" alt="Víctor" class="w-full h-full object-cover">
+                    -->
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Víctor Naveros</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Desarrollador Frontend
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            Diseñador UX/UI
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Responsable de la interfaz web, diseño de usuario y experiencia interactiva. 
+                        Desarrolla el sistema de gamificación y las páginas informativas del proyecto.
+                    </p>
+                    
+                    <!-- Contacto -->
+                    <div class="border-t pt-4 space-y-2">
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📧</span>
+                            <span>vlcja.@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>📱</span>
+                            <span>3229140640</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-600">
+                            <span>💻</span>
+                            <span>Víctor Naveros</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nota sobre ensamblaje -->
+        <div class="mt-12 text-center scroll-fade-in">
+            <div class="inline-block bg-white rounded-2xl shadow-lg px-8 py-6">
+                <p class="text-gray-700 text-lg">
+                    <span class="text-3xl mr-2">🤝</span>
+                    <strong>Trabajo en equipo:</strong> Los tres participamos activamente en el ensamblaje y pruebas del robot físico.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-20 bg-gradient-to-r from-green-600 to-green-700 text-white">
+    <div class="container mx-auto px-6 text-center">
+        <div class="max-w-3xl mx-auto scroll-fade-in">
+            <h2 class="text-4xl font-bold mb-6">¿Tienes alguna pregunta?</h2>
+            <p class="text-xl mb-8 text-green-100">
+                No dudes en contactarnos. Estaremos encantados de conversar sobre el proyecto
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="{% url 'el_proyecto' %}" class="bg-white text-green-600 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg transition transform hover:scale-105">
+                    Ver el Proyecto
+                </a>
+                <a href="{% url 'sobre_robot' %}" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition transform hover:scale-105">
+                    Conocer el Robot
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
