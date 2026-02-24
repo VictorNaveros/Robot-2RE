@@ -1,0 +1,17 @@
+Django==5.1
+asgiref==3.8.1
+sqlparse==0.5.2
+gunicorn==23.0.0
+whitenoise==6.8.2
+psycopg2-binary==2.9.10
+dj-database-url==2.2.0
+mysqlclient==2.2.0
+Pillow==11.0.0
+requests==2.32.3
+ultralytics==8.3.0
+torch==2.5.0
+torchvision==0.20.0
+opencv-python-headless==4.10.0
+numpy==2.1.0
+PyYAML==6.0
+scipy==1.14.0

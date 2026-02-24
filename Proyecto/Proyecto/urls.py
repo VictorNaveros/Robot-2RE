@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('apps.login.urls')),
     path('', include('apps.dashboard.urls')),
     path('api/', include('apps.telemetria.urls')),
+    path('api/camara/', include('apps.camara.urls')),
 ]

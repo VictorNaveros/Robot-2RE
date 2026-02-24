@@ -1,7 +1,5 @@
 /* Animaciones y estilos personalizados */
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
-}
+
 
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -129,3 +127,17 @@
     animation: float 3s ease-in-out infinite;
 }
 
+/* Logo en navbar */
+.logo-navbar {
+    height: 32px !important;
+    width: auto !important;
+    max-height: 32px !important;
+    object-fit: contain;
+}
+
+.logo-navbar-small {
+    height: 28px !important;
+    width: auto !important;
+    max-height: 28px !important;
+    object-fit: contain;
+}

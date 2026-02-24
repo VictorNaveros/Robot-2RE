@@ -1,26 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache  # ← agregar
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from apps.login.models import Usuario
 from apps.telemetria.views import obtener_datos_dashboard
 
+@never_cache
 @login_required
 def dashboard_view(request):
-    # Obtener datos de telemetría
     datos_telemetria = obtener_datos_dashboard(request)
-    
     return render(request, 'dashboard/dashboard.html', datos_telemetria)
 
+@never_cache
 @login_required
 def cambiar_username_view(request):
     if request.method == 'POST':
         nuevo_username = request.POST.get('nuevo_username')
-        
-        # Validar que el username no esté vacío
         if not nuevo_username or len(nuevo_username.strip()) == 0:
             messages.error(request, 'El nombre de usuario no puede estar vacío')
-        # Validar que el username no exista ya
         elif Usuario.objects.filter(username=nuevo_username).exclude(id=request.user.id).exists():
             messages.error(request, 'Este nombre de usuario ya está en uso')
         else:
@@ -28,9 +26,9 @@ def cambiar_username_view(request):
             request.user.save()
             messages.success(request, 'Nombre de usuario actualizado exitosamente')
             return redirect('perfil')
-    
     return redirect('perfil')
 
+@never_cache
 @login_required
 def perfil_view(request):
     if request.method == 'POST':

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Entorno virtual (NO SUBIR)
+venv/
+env/
+.venv/
+
+# Django
+*.log
+db.sqlite3
+staticfiles/
+
+# MySQL
+*.sql
+*.mysql
+
+# Archivos grandes del modelo YOLO
+apps/camara/yolov8n.pt
+apps/camara/ultima.jpg
+
+# Variables de entorno
+.env
+
+# VSCode
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
