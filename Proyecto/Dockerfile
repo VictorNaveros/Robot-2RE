@@ -21,4 +21,4 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "Proyecto.wsgi:application", "--bind", "0.0.0.0:8000"]
