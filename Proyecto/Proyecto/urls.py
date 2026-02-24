@@ -19,9 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', include('apps.principal.urls')),
-    path('', include('apps.login.urls')),
-    path('', include('apps.dashboard.urls')),
-    path('api/', include('apps.telemetria.urls')),
+    path('login/', include('apps.login.urls')),
+    path('dashboard/', include('apps.dashboard.urls')),
+
+    path('api/telemetria/', include('apps.telemetria.urls')),
     path('api/camara/', include('apps.camara.urls')),
 ]
