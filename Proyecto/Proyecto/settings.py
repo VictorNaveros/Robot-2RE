@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
+import dj_database_url
 import os
 
 
@@ -82,14 +83,9 @@ WSGI_APPLICATION = 'Proyecto.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get("MYSQL_DATABASE"),
-        'USER': os.environ.get("MYSQL_USER"),
-        'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
-        'HOST': os.environ.get("MYSQL_HOST"),
-        'PORT': os.environ.get("MYSQL_PORT"),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
 }
 
 
