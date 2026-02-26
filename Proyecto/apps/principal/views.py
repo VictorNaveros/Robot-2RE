@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import PuntajeJuego
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home(request):
@@ -29,7 +30,7 @@ def clasifica_residuos(request):
     """Vista del juego clasifica residuos"""
     return render(request, 'principal/clasifica.html')
 
-
+@csrf_exempt
 @require_POST
 def guardar_puntaje_quiz(request):
     """Guarda el puntaje del quiz"""
@@ -125,6 +126,7 @@ def obtener_leaderboard(request):
         ]
     })
 
+@csrf_exempt
 @require_POST
 def guardar_puntaje_clasifica(request):
     """Guarda el puntaje del juego clasifica residuos"""
