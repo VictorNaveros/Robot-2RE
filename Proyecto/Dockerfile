@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY . .
 
-CMD sh -c "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py createsuperuser --noinput || true && gunicorn Proyecto.wsgi:application --bind 0.0.0.0:$PORT"
+CMD sh -c "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py createsuperuser --noinput --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL || true && gunicorn Proyecto.wsgi:application --bind 0.0.0.0:$PORT"
