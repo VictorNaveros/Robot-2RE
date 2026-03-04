@@ -117,57 +117,57 @@
                         </div>
 
                         <!-- Almacenamiento -->
-<div>
-    <div class="mb-6">
-        <div class="flex justify-between items-center mb-2">
-            <span class="text-gray-700 font-semibold">Almacenamiento</span>
-            <span class="text-2xl font-bold robot-valor text-green-600">
-                {% if estado_robot %}{{ estado_robot.almacenamiento_pct|floatformat:0 }}%{% else %}--{% endif %}
-            </span>
-        </div>
-        
-        <!-- Barra de progreso -->
-        <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-            {% if estado_robot %}
-                <div 
-                    class="h-full transition-all duration-500 rounded-full flex items-center justify-end pr-2 text-white text-xs font-bold
-                    {% if estado_robot.almacenamiento_pct >= 80 %}bg-red-500
-                    {% elif estado_robot.almacenamiento_pct >= 50 %}bg-yellow-500
-                    {% else %}bg-green-500{% endif %}"
-                    
-                >
-                    {% if estado_robot.almacenamiento_pct > 10 %}
-                        {{ estado_robot.almacenamiento_pct|floatformat:0 }}%
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="h-full bg-gray-400 w-0"></div>
-            {% endif %}
-        </div>
-    </div>
+                        <div>
+                            <div class="mb-6">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-700 font-semibold">Almacenamiento</span>
+                                    <span class="text-2xl font-bold robot-valor text-green-600">
+                                        {% if estado_robot %}{{ estado_robot.almacenamiento_pct|floatformat:0 }}%{% else %}--{% endif %}
+                                    </span>
+                                </div>
+                                
+                                <!-- Barra de progreso -->
+                                <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                                    {% if estado_robot %}
+                                        <div 
+                                            class="h-full transition-all duration-500 rounded-full flex items-center justify-end pr-2 text-white text-xs font-bold
+                                            {% if estado_robot.almacenamiento_pct >= 80 %}bg-red-500
+                                            {% elif estado_robot.almacenamiento_pct >= 50 %}bg-yellow-500
+                                            {% else %}bg-green-500{% endif %}"
+                                            style="width: {{ estado_robot.almacenamiento_pct|floatformat:0 }}%;"
+                                        >
+                                            {% if estado_robot.almacenamiento_pct > 10 %}
+                                                {{ estado_robot.almacenamiento_pct|floatformat:0 }}%
+                                            {% endif %}
+                                        </div>
+                                    {% else %}
+                                        <div class="h-full bg-gray-400" style="width: 0%;"></div>
+                                    {% endif %}
+                                </div>
+                            </div>
 
-    <!-- Info adicional -->
-    <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
-        <div class="flex justify-between">
-            <span class="text-gray-600">Última actualización:</span>
-            <span class="font-semibold text-gray-800">
-                {% if estado_robot %}{{ estado_robot.fecha_registro|date:"d/m/Y H:i" }}{% else %}--{% endif %}
-            </span>
-        </div>
-        <div class="flex justify-between">
-            <span class="text-gray-600">Jornada activa:</span>
-            <span class="font-semibold text-gray-800">
-                {% if jornada_activa %}
-                    <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></span>
-                    Sí
-                {% else %}
-                    <span class="inline-block w-2 h-2 bg-gray-400 rounded-full mr-1"></span>
-                    No
-                {% endif %}
-            </span>
-        </div>
-    </div>
-</div>
+                            <!-- Info adicional -->
+                            <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Última actualización:</span>
+                                    <span class="font-semibold text-gray-800">
+                                        {% if estado_robot %}{{ estado_robot.fecha_registro|date:"d/m/Y H:i" }}{% else %}--{% endif %}
+                                    </span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Jornada activa:</span>
+                                    <span class="font-semibold text-gray-800">
+                                        {% if jornada_activa %}
+                                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></span>
+                                            Sí
+                                        {% else %}
+                                            <span class="inline-block w-2 h-2 bg-gray-400 rounded-full mr-1"></span>
+                                            No
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -257,7 +257,7 @@
                 </div>
             </div>
 
-            <!-- Gráfico de Actividad (Placeholder) -->
+            <!-- Gráfico de Actividad -->
             <div class="mb-8 scroll-fade-in">
                 <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
                     <span class="text-3xl">📊</span>
@@ -266,6 +266,42 @@
                 
                 <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8">
                     <canvas id="activityChart" height="80"></canvas>
+                </div>
+            </div>
+
+            <!-- Accesos Rápidos -->
+            <div class="scroll-fade-in">
+                <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="text-3xl">⚡</span>
+                    Accesos Rápidos
+                </h3>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    
+                    <a href="{% url 'perfil' %}" class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-2xl shadow-xl p-6 transition transform hover:scale-105 group">
+                        <div class="text-5xl mb-3 group-hover:scale-110 transition-transform">👤</div>
+                        <h4 class="text-xl font-bold">Mi Perfil</h4>
+                        <p class="text-sm text-blue-100 mt-1">Configuración de cuenta</p>
+                    </a>
+
+                    <a href="{% url 'home' %}#juegos" class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-2xl shadow-xl p-6 transition transform hover:scale-105 group">
+                        <div class="text-5xl mb-3 group-hover:scale-110 transition-transform">🎮</div>
+                        <h4 class="text-xl font-bold">Juegos</h4>
+                        <p class="text-sm text-green-100 mt-1">Aprende jugando</p>
+                    </a>
+
+                    <a href="{% url 'sobre_robot' %}" class="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-2xl shadow-xl p-6 transition transform hover:scale-105 group">
+                        <div class="text-5xl mb-3 group-hover:scale-110 transition-transform">🤖</div>
+                        <h4 class="text-xl font-bold">El Robot</h4>
+                        <p class="text-sm text-purple-100 mt-1">Conoce más</p>
+                    </a>
+
+                    <a href="{% url 'el_proyecto' %}" class="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-2xl shadow-xl p-6 transition transform hover:scale-105 group">
+                        <div class="text-5xl mb-3 group-hover:scale-110 transition-transform">📋</div>
+                        <h4 class="text-xl font-bold">Proyecto</h4>
+                        <p class="text-sm text-orange-100 mt-1">Misión y visión</p>
+                    </a>
+
                 </div>
             </div>
 
@@ -293,19 +329,30 @@
         setInterval(actualizarReloj, 1000);
         actualizarReloj();
 
-        // Gráfico de actividad (placeholder con datos de ejemplo)
+        // Gráfico de actividad con DATOS REALES
         const ctx = document.getElementById('activityChart').getContext('2d');
+        
+        // Datos desde Django (ya vienen como JSON)
+        const diasGrafica = {{ dias_grafica_json|safe }};
+        const botellasGrafica = {{ botellas_grafica_json|safe }};
+        
         const activityChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                labels: diasGrafica,
                 datasets: [{
                     label: 'Botellas Recicladas',
-                    data: [12, 19, 15, 25, 22, 18, 20],
+                    data: botellasGrafica,
                     borderColor: 'rgb(16, 185, 129)',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     tension: 0.4,
-                    fill: true
+                    fill: true,
+                    pointBackgroundColor: 'rgb(16, 185, 129)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(16, 185, 129)',
+                    pointRadius: 5,
+                    pointHoverRadius: 7
                 }]
             },
             options: {
@@ -315,13 +362,35 @@
                     legend: {
                         display: true,
                         position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' botellas';
+                            }
+                        }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            stepSize: 5
+                            stepSize: 1,
+                            callback: function(value) {
+                                if (Number.isInteger(value)) {
+                                    return value;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Botellas'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Últimos 7 Días'
                         }
                     }
                 }
