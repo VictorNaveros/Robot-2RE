@@ -11,7 +11,7 @@ from .models import EstadoSensores, EstadoRobot, JornadaRobot, EventoSensor, Con
 
 @csrf_exempt
 def recibir_telemetria(request):
-    """Recibe telemetría del ESP32 y la guarda en la BD"""
+    """Recibe telemetría del ESP32/PC y la guarda en la BD"""
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -25,6 +25,7 @@ def recibir_telemetria(request):
             sensores_data = data.get('sensores', {})
             infrarrojo = sensores_data.get('Infrarrojo', 0)
             ultrasonico_cm = sensores_data.get('Ultrasonico_cm', 0)
+            camara_raw = sensores_data.get('camara', None)  # 0, 1 o None si no viene
 
             # ====== CONTADOR DE BOTELLAS ======
             if infrarrojo == 1:
@@ -38,7 +39,7 @@ def recibir_telemetria(request):
                 print(f"🧴 Botella detectada! Total hoy: {contador.cantidad}")
 
             # ====== CALCULAR ALMACENAMIENTO ======
-            PROFUNDIDAD_CONTENEDOR = 30  # cm cuando está vacío
+            PROFUNDIDAD_CONTENEDOR = 94  # cm cuando está vacío
 
             if ultrasonico_cm >= PROFUNDIDAD_CONTENEDOR:
                 almacenamiento_pct = 0
@@ -52,18 +53,28 @@ def recibir_telemetria(request):
             print(f"📏 Distancia: {ultrasonico_cm}cm → Almacenamiento: {almacenamiento_pct}%")
 
             # ====== ESTADO DE SENSORES ======
-            # ✅ CORREGIDO: usar get_or_create para respetar el singleton pk=1
             estado_infrarrojo = 'ok' if infrarrojo in [0, 1] else 'error'
             estado_ultrasonico = 'ok' if ultrasonico_cm > 0 else 'error'
 
+            # Camara: 1 = ok, 0 = error, None = desconectado
+            if camara_raw is None:
+                estado_camara = 'desconectado'
+            elif camara_raw == 1:
+                estado_camara = 'ok'
+            else:
+                estado_camara = 'error'
+
             sensor, _ = EstadoSensores.objects.get_or_create(pk=1)
-            sensor.camara = 'desconectado'
+            sensor.camara = estado_camara
             sensor.s_infrarrojo = estado_infrarrojo
             sensor.s_ultrasonico = estado_ultrasonico
             sensor.save()
 
+            print(f"📷 Cámara: {estado_camara} | 🔴 Infrarrojo: {estado_infrarrojo} | 📶 Ultrasónico: {estado_ultrasonico}")
+
             # ====== ESTADO ROBOT ======
-            estado_esp = data.get('estado_robot', 'OFFLINE')
+            # Si no viene estado_robot en el JSON asumimos ONLINE
+            estado_esp = data.get('estado_robot', 'ONLINE')
             estado_robot = 'activo' if estado_esp == 'ONLINE' else 'inactivo'
 
             EstadoRobot.objects.create(
@@ -81,7 +92,8 @@ def recibir_telemetria(request):
                 'status': 'ok',
                 'mensaje': 'Telemetría guardada',
                 'botellas_hoy': botellas_hoy,
-                'almacenamiento': almacenamiento_pct
+                'almacenamiento': almacenamiento_pct,
+                'camara': estado_camara,
             })
 
         except Exception as e:
