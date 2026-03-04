@@ -28,7 +28,7 @@ def recibir_telemetria(request):
             camara_raw = sensores_data.get('camara', None)  # 0, 1 o None si no viene
 
             # ====== CONTADOR DE BOTELLAS ======
-            if infrarrojo == 1:
+            if infrarrojo == 0:
                 hoy = date.today()
                 contador, created = ContadorBotellas.objects.get_or_create(
                     fecha=hoy,
