@@ -53,16 +53,21 @@ def recibir_telemetria(request):
             print(f"📏 Distancia: {ultrasonico_cm}cm → Almacenamiento: {almacenamiento_pct}%")
 
             # ====== ESTADO DE SENSORES ======
-            estado_infrarrojo = 'ok' if infrarrojo in [0, 1] else 'error'
-            estado_ultrasonico = 'ok' if ultrasonico_cm > 0 else 'error'
-
-            # Camara: 1 = ok, 0 = error, None = desconectado
+            # La cámara controla el estado de todos los demás sensores
             if camara_raw is None:
                 estado_camara = 'desconectado'
             elif camara_raw == 1:
                 estado_camara = 'ok'
             else:
                 estado_camara = 'error'
+
+            # Si la cámara no está ok, los demás sensores se desconectan también
+            if estado_camara != 'ok':
+                estado_infrarrojo = 'desconectado'
+                estado_ultrasonico = 'desconectado'
+            else:
+                estado_infrarrojo = 'ok' if infrarrojo in [0, 1] else 'error'
+                estado_ultrasonico = 'ok' if ultrasonico_cm > 0 else 'error'
 
             sensor, _ = EstadoSensores.objects.get_or_create(pk=1)
             sensor.camara = estado_camara
@@ -73,9 +78,12 @@ def recibir_telemetria(request):
             print(f"📷 Cámara: {estado_camara} | 🔴 Infrarrojo: {estado_infrarrojo} | 📶 Ultrasónico: {estado_ultrasonico}")
 
             # ====== ESTADO ROBOT ======
-            # Si no viene estado_robot en el JSON asumimos ONLINE
-            estado_esp = data.get('estado_robot', 'ONLINE')
-            estado_robot = 'activo' if estado_esp == 'ONLINE' else 'inactivo'
+            # Si la cámara no está ok, el robot pasa a inactivo
+            if estado_camara != 'ok':
+                estado_robot = 'inactivo'
+            else:
+                estado_esp = data.get('estado_robot', 'ONLINE')
+                estado_robot = 'activo' if estado_esp == 'ONLINE' else 'inactivo'
 
             EstadoRobot.objects.create(
                 estado=estado_robot,
