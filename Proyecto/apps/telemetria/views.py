@@ -1,110 +1,138 @@
 import json
-from datetime import datetime
-
+from datetime import date
+from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
-from .models import EstadoSensores, EventoSensor, EstadoRobot, JornadaRobot
-
-
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from .models import EstadoSensores, EstadoRobot, JornadaRobot, EventoSensor, ContadorBotellas
 
-@csrf_exempt  # IMPORTANTE para ESP32
+
+@csrf_exempt
 def recibir_telemetria(request):
-    if request.method != "POST":
-        return JsonResponse(
-            {"error": "Método no permitido"},
-            status=405
-        )
+    """Recibe telemetría del ESP32 y la guarda en la BD"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            print("\n" + "=" * 40)
+            print("========== TELEMETRÍA RECIBIDA ==========")
+            print(f"🕒 Hora: {timezone.now()}")
+            print(f"📦 Payload: {data}")
+            print("=" * 40 + "\n")
 
-    try:
-        data = json.loads(request.body)
-    except json.JSONDecodeError:
-        return JsonResponse(
-            {"error": "JSON inválido"},
-            status=400
-        )
+            # ====== PROCESAR SENSORES ======
+            sensores_data = data.get('sensores', {})
+            infrarrojo = sensores_data.get('Infrarrojo', 0)
+            ultrasonico_cm = sensores_data.get('Ultrasonico_cm', 0)
 
-    sensores = data.get("sensores")
-    if not sensores:
-        return JsonResponse(
-            {"error": "sensores faltantes"},
-            status=400
-        )
+            # ====== CONTADOR DE BOTELLAS ======
+            if infrarrojo == 1:
+                hoy = date.today()
+                contador, created = ContadorBotellas.objects.get_or_create(
+                    fecha=hoy,
+                    defaults={'cantidad': 0}
+                )
+                contador.cantidad += 1
+                contador.save()
+                print(f"🧴 Botella detectada! Total hoy: {contador.cantidad}")
 
-    # 🔍 DEBUG (puedes quitar esto luego)
-    print("========== TELEMETRÍA RECIBIDA ==========")
-    print(f"🕒 Hora: {datetime.now()}")
-    print(f"📦 Payload: {data}")
-    print("========================================")
+            # ====== CALCULAR ALMACENAMIENTO ======
+            PROFUNDIDAD_CONTENEDOR = 30  # cm cuando está vacío
 
-    # Snapshot único
-    estado, _ = EstadoSensores.objects.get_or_create(pk=1)
+            if ultrasonico_cm >= PROFUNDIDAD_CONTENEDOR:
+                almacenamiento_pct = 0
+            elif ultrasonico_cm <= 0:
+                almacenamiento_pct = 100
+            else:
+                almacenamiento_pct = int(
+                    ((PROFUNDIDAD_CONTENEDOR - ultrasonico_cm) / PROFUNDIDAD_CONTENEDOR) * 100
+                )
 
-    mapa_sensores = {
-        "camara": "camara",
-        "s_infrarrojo": "Infrarrojo",
-        "s_ultrasonico": "ultrasonico",
-    }
+            print(f"📏 Distancia: {ultrasonico_cm}cm → Almacenamiento: {almacenamiento_pct}%")
 
-    cambios = []
+            # ====== ESTADO DE SENSORES ======
+            # ✅ CORREGIDO: usar get_or_create para respetar el singleton pk=1
+            estado_infrarrojo = 'ok' if infrarrojo in [0, 1] else 'error'
+            estado_ultrasonico = 'ok' if ultrasonico_cm > 0 else 'error'
 
-    for campo_modelo, tipo_evento in mapa_sensores.items():
-        nuevo_valor = sensores.get(tipo_evento)
+            sensor, _ = EstadoSensores.objects.get_or_create(pk=1)
+            sensor.camara = 'desconectado'
+            sensor.s_infrarrojo = estado_infrarrojo
+            sensor.s_ultrasonico = estado_ultrasonico
+            sensor.save()
 
-        if nuevo_valor is None:
-            continue
+            # ====== ESTADO ROBOT ======
+            estado_esp = data.get('estado_robot', 'OFFLINE')
+            estado_robot = 'activo' if estado_esp == 'ONLINE' else 'inactivo'
 
-        estado_actual = getattr(estado, campo_modelo)
-        nuevo_estado = "ok" if nuevo_valor == 1 else "error"
-
-        if estado_actual != nuevo_estado:
-            EventoSensor.objects.create(
-                tipo_sensor=tipo_evento,
-                valor=nuevo_valor
+            EstadoRobot.objects.create(
+                estado=estado_robot,
+                almacenamiento_pct=almacenamiento_pct
             )
 
-            setattr(estado, campo_modelo, nuevo_estado)
-            cambios.append(tipo_evento)
+            # ====== RESPUESTA ======
+            botellas_hoy = 0
+            contador_hoy = ContadorBotellas.objects.filter(fecha=date.today()).first()
+            if contador_hoy:
+                botellas_hoy = contador_hoy.cantidad
 
-    if cambios:
-        estado.save()
+            return JsonResponse({
+                'status': 'ok',
+                'mensaje': 'Telemetría guardada',
+                'botellas_hoy': botellas_hoy,
+                'almacenamiento': almacenamiento_pct
+            })
 
-    return JsonResponse({
-        "status": "ok",
-        "cambios": cambios
-    })
+        except Exception as e:
+            print(f"❌ ERROR al procesar telemetría: {e}")
+            import traceback
+            traceback.print_exc()
+            return JsonResponse({
+                'status': 'error',
+                'mensaje': str(e)
+            }, status=400)
+
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
 @login_required
 def obtener_datos_dashboard(request):
-    """
-    Retorna el estado actual de sensores y robot
-    """
-    # Obtener estado actual de sensores (singleton pk=1)
+    """Retorna el estado actual de sensores y robot"""
     try:
         sensores = EstadoSensores.objects.get(pk=1)
     except EstadoSensores.DoesNotExist:
         sensores = None
-    
-    # Obtener último estado del robot
+
     try:
         estado_robot = EstadoRobot.objects.latest('fecha_registro')
     except EstadoRobot.DoesNotExist:
         estado_robot = None
-    
-    # Obtener jornada activa (sin fecha_fin)
+
     try:
         jornada_activa = JornadaRobot.objects.filter(fecha_fin__isnull=True).latest('fecha_inicio')
     except JornadaRobot.DoesNotExist:
         jornada_activa = None
-    
+
     context = {
         'sensores': sensores,
         'estado_robot': estado_robot,
         'jornada_activa': jornada_activa,
     }
-    
+
     return context
+
+
+@csrf_exempt
+def esperar_orden_servo(request):
+    """El ESP32 consulta si debe abrir el servo."""
+    import apps.camara.estado_global as estado
+
+    debe_abrir = estado.orden_abrir_servo
+
+    if debe_abrir:
+        estado.orden_abrir_servo = False
+
+    return JsonResponse({
+        'abrir_servo': debe_abrir
+    })

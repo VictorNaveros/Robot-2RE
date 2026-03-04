@@ -72,3 +72,16 @@ class EventoSensor(models.Model):
         indexes = [
             models.Index(fields=['tipo_sensor', '-fecha_registro']),
         ]
+
+class ContadorBotellas(models.Model):
+    """Contador de botellas detectadas por día"""
+    fecha = models.DateField(auto_now_add=True)
+    cantidad = models.IntegerField(default=0)
+    
+    class Meta:
+        verbose_name = "Contador de Botellas"
+        verbose_name_plural = "Contadores de Botellas"
+        ordering = ['-fecha']
+    
+    def __str__(self):
+        return f"{self.fecha}: {self.cantidad} botellas"

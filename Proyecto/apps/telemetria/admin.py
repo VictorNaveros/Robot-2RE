@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import EstadoSensores, EventoSensor,EstadoRobot,JornadaRobot
+from .models import EstadoSensores, EventoSensor,EstadoRobot,JornadaRobot,ContadorBotellas
 
 admin.site.register(EstadoSensores)
 admin.site.register(EventoSensor)
 admin.site.register(EstadoRobot)
 admin.site.register(JornadaRobot)
+@admin.register(ContadorBotellas)
+class ContadorBotellasAdmin(admin.ModelAdmin):
+    list_display = ('fecha', 'cantidad')
+    list_filter = ('fecha',)
+    ordering = ('-fecha',)
