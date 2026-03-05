@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import date, datetime, timedelta
 from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -25,10 +25,10 @@ def recibir_telemetria(request):
             sensores_data = data.get('sensores', {})
             infrarrojo = sensores_data.get('Infrarrojo', 0)
             ultrasonico_cm = sensores_data.get('Ultrasonico_cm', 0)
-            camara_raw = sensores_data.get('camara', None)  # 0, 1 o None si no viene
+            camara_raw = sensores_data.get('camara', None)
 
             # ====== CONTADOR DE BOTELLAS ======
-            if infrarrojo == 0:
+            if infrarrojo == 1:
                 hoy = date.today()
                 contador, created = ContadorBotellas.objects.get_or_create(
                     fecha=hoy,
@@ -39,7 +39,7 @@ def recibir_telemetria(request):
                 print(f"🧴 Botella detectada! Total hoy: {contador.cantidad}")
 
             # ====== CALCULAR ALMACENAMIENTO ======
-            PROFUNDIDAD_CONTENEDOR = 94  # cm cuando está vacío
+            PROFUNDIDAD_CONTENEDOR = 94
 
             if ultrasonico_cm >= PROFUNDIDAD_CONTENEDOR:
                 almacenamiento_pct = 0
@@ -53,7 +53,6 @@ def recibir_telemetria(request):
             print(f"📏 Distancia: {ultrasonico_cm}cm → Almacenamiento: {almacenamiento_pct}%")
 
             # ====== ESTADO DE SENSORES ======
-            # La cámara controla el estado de todos los demás sensores
             if camara_raw is None:
                 estado_camara = 'desconectado'
             elif camara_raw == 1:
@@ -61,7 +60,6 @@ def recibir_telemetria(request):
             else:
                 estado_camara = 'error'
 
-            # Si la cámara no está ok, los demás sensores se desconectan también
             if estado_camara != 'ok':
                 estado_infrarrojo = 'desconectado'
                 estado_ultrasonico = 'desconectado'
@@ -78,7 +76,6 @@ def recibir_telemetria(request):
             print(f"📷 Cámara: {estado_camara} | 🔴 Infrarrojo: {estado_infrarrojo} | 📶 Ultrasónico: {estado_ultrasonico}")
 
             # ====== ESTADO ROBOT ======
-            # Si la cámara no está ok, el robot pasa a inactivo
             if estado_camara != 'ok':
                 estado_robot = 'inactivo'
             else:
@@ -117,6 +114,62 @@ def recibir_telemetria(request):
 
 
 @login_required
+def estado_actual(request):
+    """
+    Endpoint de polling — devuelve el estado actual del robot,
+    sensores, almacenamiento y botellas de los últimos 7 días en JSON.
+    El dashboard lo consulta cada 5 segundos para actualizarse sin recargar.
+    """
+    # Estado robot
+    try:
+        robot = EstadoRobot.objects.latest('fecha_registro')
+        estado_robot = {
+            'estado': robot.estado,
+            'estado_display': robot.get_estado_display(),
+            'almacenamiento_pct': robot.almacenamiento_pct,
+            'fecha_registro': robot.fecha_registro.strftime('%d/%m/%Y %H:%M'),
+        }
+    except EstadoRobot.DoesNotExist:
+        estado_robot = None
+
+    # Sensores
+    try:
+        sensores = EstadoSensores.objects.get(pk=1)
+        estado_sensores = {
+            'camara': sensores.camara,
+            'camara_display': sensores.get_camara_display(),
+            's_infrarrojo': sensores.s_infrarrojo,
+            's_infrarrojo_display': sensores.get_s_infrarrojo_display(),
+            's_ultrasonico': sensores.s_ultrasonico,
+            's_ultrasonico_display': sensores.get_s_ultrasonico_display(),
+        }
+    except EstadoSensores.DoesNotExist:
+        estado_sensores = None
+
+    # Jornada activa
+    jornada_activa = JornadaRobot.objects.filter(fecha_fin__isnull=True).exists()
+
+    # Botellas últimos 7 días
+    hoy = date.today()
+    hace_7_dias = hoy - timedelta(days=6)
+    dias = []
+    botellas_por_dia = []
+    for i in range(7):
+        dia = hace_7_dias + timedelta(days=i)
+        dias.append(dia.strftime('%d/%m'))
+        contador = ContadorBotellas.objects.filter(fecha=dia).first()
+        botellas_por_dia.append(contador.cantidad if contador else 0)
+
+    return JsonResponse({
+        'estado_robot': estado_robot,
+        'sensores': estado_sensores,
+        'jornada_activa': jornada_activa,
+        'dias_grafica': dias,
+        'botellas_grafica': botellas_por_dia,
+    })
+
+
+@login_required
 def obtener_datos_dashboard(request):
     """Retorna el estado actual de sensores y robot"""
     try:
@@ -134,13 +187,11 @@ def obtener_datos_dashboard(request):
     except JornadaRobot.DoesNotExist:
         jornada_activa = None
 
-    context = {
+    return {
         'sensores': sensores,
         'estado_robot': estado_robot,
         'jornada_activa': jornada_activa,
     }
-
-    return context
 
 
 @csrf_exempt

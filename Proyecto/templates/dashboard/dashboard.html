@@ -13,11 +13,9 @@
     
     <!-- Fondo con imagen y overlay -->
     <div class="fixed inset-0 z-0">
-        <!-- Imagen de fondo (placeholder - reemplazar después) -->
         <div class="absolute inset-0 bg-gradient-to-br from-gray-800 via-gray-900 to-black opacity-95"></div>
         <div class="absolute inset-0" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=80'); background-size: cover; background-position: center; opacity: 0.1;"></div>
         
-        <!-- Formas geométricas animadas -->
         <div class="absolute top-20 left-10 w-72 h-72 bg-green-500 rounded-full opacity-10 blur-3xl animate-pulse"></div>
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
     </div>
@@ -103,7 +101,8 @@
                                     {% else %}⚫{% endif %}
                                 {% else %}⚫{% endif %}
                             </div>
-                            <h4 class="text-3xl font-bold mb-2 robot-texto
+                            <!-- ← id añadido -->
+                            <h4 id="texto-estado-robot" class="text-3xl font-bold mb-2
                                 {% if estado_robot %}
                                     {% if estado_robot.estado == 'activo' %}text-green-600
                                     {% elif estado_robot.estado == 'error' %}text-red-600
@@ -121,7 +120,8 @@
                             <div class="mb-6">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-gray-700 font-semibold">Almacenamiento</span>
-                                    <span class="text-2xl font-bold robot-valor text-green-600">
+                                    <!-- ← id añadido -->
+                                    <span id="valor-almacenamiento" class="text-2xl font-bold robot-valor text-green-600">
                                         {% if estado_robot %}{{ estado_robot.almacenamiento_pct|floatformat:0 }}%{% else %}--{% endif %}
                                     </span>
                                 </div>
@@ -129,19 +129,21 @@
                                 <!-- Barra de progreso -->
                                 <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
                                     {% if estado_robot %}
-                                        <div 
+                                        <!-- ← id añadido -->
+                                        <div
+                                            id="barra-almacenamiento"
                                             class="h-full transition-all duration-500 rounded-full flex items-center justify-end pr-2 text-white text-xs font-bold
                                             {% if estado_robot.almacenamiento_pct >= 80 %}bg-red-500
                                             {% elif estado_robot.almacenamiento_pct >= 50 %}bg-yellow-500
                                             {% else %}bg-green-500{% endif %}"
-                                            style="width: {{ estado_robot.almacenamiento_pct|floatformat:0 }}%;"
+                                            style="width: {{ estado_robot.almacenamiento_pct|floatformat:0 }}%"
                                         >
                                             {% if estado_robot.almacenamiento_pct > 10 %}
                                                 {{ estado_robot.almacenamiento_pct|floatformat:0 }}%
                                             {% endif %}
                                         </div>
                                     {% else %}
-                                        <div class="h-full bg-gray-400" style="width: 0%;"></div>
+                                        <div id="barra-almacenamiento" class="h-full bg-gray-400" style="width: 0%"></div>
                                     {% endif %}
                                 </div>
                             </div>
@@ -150,19 +152,19 @@
                             <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Última actualización:</span>
-                                    <span class="font-semibold text-gray-800">
+                                    <!-- ← id añadido -->
+                                    <span id="ultima-actualizacion" class="font-semibold text-gray-800">
                                         {% if estado_robot %}{{ estado_robot.fecha_registro|date:"d/m/Y H:i" }}{% else %}--{% endif %}
                                     </span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-gray-600">Jornada activa:</span>
-                                    <span class="font-semibold text-gray-800">
+                                    <!-- ← id añadido -->
+                                    <span id="jornada-activa" class="font-semibold text-gray-800">
                                         {% if jornada_activa %}
-                                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></span>
-                                            Sí
+                                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></span>Sí
                                         {% else %}
-                                            <span class="inline-block w-2 h-2 bg-gray-400 rounded-full mr-1"></span>
-                                            No
+                                            <span class="inline-block w-2 h-2 bg-gray-400 rounded-full mr-1"></span>No
                                         {% endif %}
                                     </span>
                                 </div>
@@ -194,7 +196,8 @@
                                 {% else %}❓{% endif %}
                             </span>
                         </div>
-                        <p class="text-2xl font-bold mb-2 sensor-texto
+                        <!-- ← id añadido -->
+                        <p id="texto-camara" class="text-2xl font-bold mb-2
                             {% if sensores %}
                                 {% if sensores.camara == 'ok' %}text-green-600
                                 {% elif sensores.camara == 'error' %}text-red-600
@@ -218,7 +221,8 @@
                                 {% else %}❓{% endif %}
                             </span>
                         </div>
-                        <p class="text-2xl font-bold mb-2 sensor-texto
+                        <!-- ← id añadido -->
+                        <p id="texto-infrarrojo" class="text-2xl font-bold mb-2
                             {% if sensores %}
                                 {% if sensores.s_infrarrojo == 'ok' %}text-green-600
                                 {% elif sensores.s_infrarrojo == 'error' %}text-red-600
@@ -242,7 +246,8 @@
                                 {% else %}❓{% endif %}
                             </span>
                         </div>
-                        <p class="text-2xl font-bold mb-2 sensor-texto
+                        <!-- ← id añadido -->
+                        <p id="texto-ultrasonico" class="text-2xl font-bold mb-2
                             {% if sensores %}
                                 {% if sensores.s_ultrasonico == 'ok' %}text-green-600
                                 {% elif sensores.s_ultrasonico == 'error' %}text-red-600
@@ -274,29 +279,24 @@
 
     <!-- Scripts -->
     <script>
-        // Reloj en tiempo real
+        // ====== RELOJ EN TIEMPO REAL ======
         function actualizarReloj() {
             const ahora = new Date();
             const horas = String(ahora.getHours()).padStart(2, '0');
             const minutos = String(ahora.getMinutes()).padStart(2, '0');
             const segundos = String(ahora.getSeconds()).padStart(2, '0');
-            
             document.getElementById('reloj').textContent = `${horas}:${minutos}:${segundos}`;
             
             const dia = String(ahora.getDate()).padStart(2, '0');
             const mes = String(ahora.getMonth() + 1).padStart(2, '0');
             const anio = ahora.getFullYear();
-            
             document.getElementById('fecha').textContent = `${dia}/${mes}/${anio}`;
         }
-        
         setInterval(actualizarReloj, 1000);
         actualizarReloj();
 
-        // Gráfico de actividad con DATOS REALES
+        // ====== GRÁFICA ======
         const ctx = document.getElementById('activityChart').getContext('2d');
-        
-        // Datos desde Django (ya vienen como JSON)
         const diasGrafica = {{ dias_grafica_json|safe }};
         const botellasGrafica = {{ botellas_grafica_json|safe }};
         
@@ -323,10 +323,7 @@
                 responsive: true,
                 maintainAspectRatio: true,
                 plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
+                    legend: { display: true, position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -341,25 +338,114 @@
                         ticks: {
                             stepSize: 1,
                             callback: function(value) {
-                                if (Number.isInteger(value)) {
-                                    return value;
-                                }
+                                if (Number.isInteger(value)) return value;
                             }
                         },
-                        title: {
-                            display: true,
-                            text: 'Cantidad de Botellas'
-                        }
+                        title: { display: true, text: 'Cantidad de Botellas' }
                     },
                     x: {
-                        title: {
-                            display: true,
-                            text: 'Últimos 7 Días'
-                        }
+                        title: { display: true, text: 'Últimos 7 Días' }
                     }
                 }
             }
         });
+
+        // ====== POLLING CADA 5 SEGUNDOS ======
+        function actualizarDashboard() {
+            fetch('/api/telemetria/estado/')
+                .then(response => response.json())
+                .then(data => {
+
+                    // -- ROBOT --
+                    if (data.estado_robot) {
+                        const r = data.estado_robot;
+
+                        // Ícono
+                        const iconos = { activo: '🟢', error: '🔴', mantenimiento: '🟡', inactivo: '⚫' };
+                        document.getElementById('robot-icono').textContent = iconos[r.estado] || '⚫';
+
+                        // Texto y color
+                        const textoRobot = document.getElementById('texto-estado-robot');
+                        if (textoRobot) {
+                            textoRobot.textContent = r.estado_display;
+                            const colores = { activo: 'text-green-600', error: 'text-red-600', mantenimiento: 'text-yellow-600', inactivo: 'text-gray-600' };
+                            textoRobot.className = 'text-3xl font-bold mb-2 ' + (colores[r.estado] || 'text-gray-600');
+                        }
+
+                        // Valor almacenamiento
+                        const valorAlm = document.getElementById('valor-almacenamiento');
+                        if (valorAlm) valorAlm.textContent = Math.round(r.almacenamiento_pct) + '%';
+
+                        // Barra almacenamiento
+                        const barra = document.getElementById('barra-almacenamiento');
+                        if (barra) {
+                            const pct = Math.round(r.almacenamiento_pct);
+                            barra.style.width = pct + '%';
+                            barra.className = 'h-full transition-all duration-500 rounded-full flex items-center justify-end pr-2 text-white text-xs font-bold';
+                            if (pct >= 80) barra.classList.add('bg-red-500');
+                            else if (pct >= 50) barra.classList.add('bg-yellow-500');
+                            else barra.classList.add('bg-green-500');
+                            barra.textContent = pct > 10 ? pct + '%' : '';
+                        }
+
+                        // Última actualización
+                        const ultimaAct = document.getElementById('ultima-actualizacion');
+                        if (ultimaAct) ultimaAct.textContent = r.fecha_registro;
+                    }
+
+                    // -- JORNADA --
+                    const jornadaEl = document.getElementById('jornada-activa');
+                    if (jornadaEl) {
+                        jornadaEl.innerHTML = data.jornada_activa
+                            ? '<span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1"></span>Sí'
+                            : '<span class="inline-block w-2 h-2 bg-gray-400 rounded-full mr-1"></span>No';
+                    }
+
+                    // -- SENSORES --
+                    if (data.sensores) {
+                        const s = data.sensores;
+                        const coloresSensor = { ok: 'text-green-600', error: 'text-red-600', desconectado: 'text-gray-600' };
+
+                        // Cámara
+                        const iconosCamara = { ok: '📷', error: '❌', desconectado: '⚠️' };
+                        document.getElementById('sensor-camara').textContent = iconosCamara[s.camara] || '❓';
+                        const textoCamara = document.getElementById('texto-camara');
+                        if (textoCamara) {
+                            textoCamara.textContent = s.camara_display;
+                            textoCamara.className = 'text-2xl font-bold mb-2 ' + (coloresSensor[s.camara] || 'text-gray-600');
+                        }
+
+                        // Infrarrojo
+                        const iconosInfra = { ok: '🔴', error: '❌', desconectado: '⚠️' };
+                        document.getElementById('sensor-infrarrojo').textContent = iconosInfra[s.s_infrarrojo] || '❓';
+                        const textoInfra = document.getElementById('texto-infrarrojo');
+                        if (textoInfra) {
+                            textoInfra.textContent = s.s_infrarrojo_display;
+                            textoInfra.className = 'text-2xl font-bold mb-2 ' + (coloresSensor[s.s_infrarrojo] || 'text-gray-600');
+                        }
+
+                        // Ultrasónico
+                        const iconosUltra = { ok: '📶', error: '❌', desconectado: '⚠️' };
+                        document.getElementById('sensor-ultrasonico').textContent = iconosUltra[s.s_ultrasonico] || '❓';
+                        const textoUltra = document.getElementById('texto-ultrasonico');
+                        if (textoUltra) {
+                            textoUltra.textContent = s.s_ultrasonico_display;
+                            textoUltra.className = 'text-2xl font-bold mb-2 ' + (coloresSensor[s.s_ultrasonico] || 'text-gray-600');
+                        }
+                    }
+
+                    // -- GRÁFICA --
+                    if (data.dias_grafica && data.botellas_grafica) {
+                        activityChart.data.labels = data.dias_grafica;
+                        activityChart.data.datasets[0].data = data.botellas_grafica;
+                        activityChart.update('none'); // sin animación para no molestar
+                    }
+                })
+                .catch(error => console.error('Error polling:', error));
+        }
+
+        // Arrancar polling cada 5 segundos
+        setInterval(actualizarDashboard, 5000);
     </script>
     <script src="{% static 'js/scroll-animations.js' %}"></script>
 </body>
